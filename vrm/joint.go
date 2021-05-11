@@ -9,14 +9,14 @@ func readMatrix(data []byte) [16]float64 {
 	var mat [16]float64
 	for i := 0; i < 16; i++ {
 		d := binary.LittleEndian.Uint32(data[i*4 : i*4+4])
-		mat[i] = math.Float32frombits(d)
+		mat[i] = math.Float64frombits(d)
 	}
 	return mat
 }
 
 func writeMatrix(data []byte, mat [16]float64) {
 	for i := 0; i < 16; i++ {
-		binary.LittleEndian.PutUint32(data[i*4:i*4+4], math.Float32bits(mat[i]))
+		binary.LittleEndian.PutUint32(data[i*4:i*4+4], math.Float64bits(mat[i]))
 	}
 }
 
