@@ -80,10 +80,10 @@ type Bone struct {
 	Node             int    `json:"node"`
 	UseDefaultValues bool   `json:"useDefaultValues"`
 
-	Min        *[3]float64 `json:"min,omitempty"`
-	Max        *[3]float64 `json:"max,omitempty"`
-	Center     *[3]float64 `json:"center,omitempty"`
-	AxisLength float64     `json:"axisLength,omitempty"`
+	Min        *[3]float32 `json:"min,omitempty"`
+	Max        *[3]float32 `json:"max,omitempty"`
+	Center     *[3]float32 `json:"center,omitempty"`
+	AxisLength float32     `json:"axisLength,omitempty"`
 }
 
 type FirstPerson struct {
@@ -111,7 +111,7 @@ type BlendShapeGroup struct {
 }
 
 type BlendShapeBind struct {
-	Mesh   uint64  `json:"mesh"`
+	Mesh   uint32  `json:"mesh"`
 	Index  int     `json:"index"`
 	Weight float64 `json:"weight"`
 }
@@ -140,7 +140,7 @@ type SecondaryAnimationBoneGroup struct {
 }
 
 type SecondaryAnimationColliderGroup struct {
-	Node      uint64                        `json:"node"`
+	Node      uint32                        `json:"node"`
 	Colliders []*SecondaryAnimationCollider `json:"colliders"`
 }
 
@@ -155,7 +155,7 @@ type MaterialProperty struct {
 	RenderQueue       int                  `json:"renderQueue"`
 	FloatProperties   map[string]float64   `json:"floatProperties"`
 	VectorProperties  map[string][]float64 `json:"vectorProperties"`
-	TextureProperties map[string]uint64    `json:"textureProperties"`
+	TextureProperties map[string]uint32    `json:"textureProperties"`
 	KeywordMap        map[string]bool      `json:"keywordMap"`
 	TagMap            map[string]string    `json:"tagMap"`
 }
@@ -166,7 +166,7 @@ func NewMaterialProperty(name string) *MaterialProperty {
 		RenderQueue:       2000,
 		FloatProperties:   map[string]float64{},
 		VectorProperties:  map[string][]float64{},
-		TextureProperties: map[string]uint64{},
+		TextureProperties: map[string]uint32{},
 		KeywordMap:        map[string]bool{},
 		TagMap:            map[string]string{},
 	}

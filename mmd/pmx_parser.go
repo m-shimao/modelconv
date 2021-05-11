@@ -78,11 +78,11 @@ func (p *PMXParser) readVertex() *Vertex {
 	wehghtType := p.readUint8()
 	if wehghtType == 0 {
 		v.Bones = []int{p.readIndex(AttrBoneIndexSz)}
-		v.BoneWeights = []float64{1}
+		v.BoneWeights = []float32{1}
 	} else if wehghtType == 1 {
 		v.Bones = []int{p.readIndex(AttrBoneIndexSz), p.readIndex(AttrBoneIndexSz)}
 		w := p.readFloat()
-		v.BoneWeights = []float64{w, 1 - w}
+		v.BoneWeights = []float32{w, 1 - w}
 	} else if wehghtType == 2 {
 		v.Bones = []int{
 			p.readIndex(AttrBoneIndexSz),
@@ -90,7 +90,7 @@ func (p *PMXParser) readVertex() *Vertex {
 			p.readIndex(AttrBoneIndexSz),
 			p.readIndex(AttrBoneIndexSz),
 		}
-		v.BoneWeights = []float64{
+		v.BoneWeights = []float32{
 			p.readFloat(),
 			p.readFloat(),
 			p.readFloat(),
@@ -99,7 +99,7 @@ func (p *PMXParser) readVertex() *Vertex {
 	} else if wehghtType == 3 {
 		v.Bones = []int{p.readIndex(AttrBoneIndexSz), p.readIndex(AttrBoneIndexSz)}
 		w := p.readFloat()
-		weights := [11]float64{w, 1 - w}
+		weights := [11]float32{w, 1 - w}
 		v.BoneWeights = weights[:]
 		p.read(weights[2:])
 	} else {

@@ -26,13 +26,13 @@ func (p *baseParser) readUint16() uint16 {
 }
 
 func (p *baseParser) readInt() int {
-	var v uint64
+	var v uint32
 	binary.Read(p.r, binary.LittleEndian, &v)
 	return int(v)
 }
 
-func (p *baseParser) readFloat() float64 {
-	var v float64
+func (p *baseParser) readFloat() float32 {
+	var v float32
 	binary.Read(p.r, binary.LittleEndian, &v)
 	return v
 }
@@ -49,7 +49,7 @@ func (p *baseParser) readVUInt(sz byte) int {
 		return int(v)
 	}
 	if sz == 4 {
-		var v uint64
+		var v uint32
 		binary.Read(p.r, binary.LittleEndian, &v)
 		return int(v)
 	}

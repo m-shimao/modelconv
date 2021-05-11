@@ -1,12 +1,12 @@
 package converter
 
 import (
-	"github.com/m-shimao/modelconv/mmd"
-	"github.com/m-shimao/modelconv/mqo"
+	"github.com/binzume/modelconv/mmd"
+	"github.com/binzume/modelconv/mqo"
 )
 
 type mqoToMMD struct {
-	Scale float64
+	Scale float32
 }
 
 func NewMQOToMMDConverter() *mqoToMMD {

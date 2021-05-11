@@ -50,9 +50,9 @@ func (p *PMDParser) readVertex() *Vertex {
 	p.read(&v.UV)
 
 	v.Bones = []int{p.readVInt(2), p.readVInt(2)}
-	w := float64(p.readUint8()) / 100
-	v.BoneWeights = []float64{w, 1 - w}
-	v.EdgeScale = float64(p.readUint8())
+	w := float32(p.readUint8()) / 100
+	v.BoneWeights = []float32{w, 1 - w}
+	v.EdgeScale = float32(p.readUint8())
 	return &v
 }
 
@@ -64,7 +64,7 @@ func (p *PMDParser) readMaterial(model *Document, i int) *Material {
 	p.read(&m.Specular)
 	p.read(&m.AColor)
 	m.Toon = int(p.readUint8())
-	m.EdgeScale = float64(p.readUint8())
+	m.EdgeScale = float32(p.readUint8())
 	m.Count = p.readInt()
 
 	tex := strings.SplitN(p.readString(20), "*", 2)

@@ -5,18 +5,18 @@ import (
 	"math"
 )
 
-func readMatrix(data []byte) [16]float64 {
-	var mat [16]float64
+func readMatrix(data []byte) [16]float32 {
+	var mat [16]float32
 	for i := 0; i < 16; i++ {
-		d := binary.LittleEndian.Uint64(data[i*4 : i*4+4])
-		mat[i] = math.Float64frombits(d)
+		d := binary.LittleEndian.Uint32(data[i*4 : i*4+4])
+		mat[i] = math.Float32frombits(d)
 	}
 	return mat
 }
 
-func writeMatrix(data []byte, mat [16]float64) {
+func writeMatrix(data []byte, mat [16]float32) {
 	for i := 0; i < 16; i++ {
-		binary.LittleEndian.PutUint64(data[i*4:i*4+4], math.Float64bits(mat[i]))
+		binary.LittleEndian.PutUint32(data[i*4:i*4+4], math.Float32bits(mat[i]))
 	}
 }
 
@@ -50,13 +50,13 @@ func (doc *Document) FixJointMatrix() {
 				}
 				for i := range skin.Joints {
 					// fix inverseBindMatrix
-					offset := bufferView.ByteOffset + uint64(i)*64
+					offset := bufferView.ByteOffset + uint32(i)*64
 					mat := readMatrix(data[offset : offset+64])
 
 					x := mat[0]*mat[12] + mat[1]*mat[13] + mat[2]*mat[14]
 					y := mat[4]*mat[12] + mat[5]*mat[13] + mat[6]*mat[14]
 					z := mat[8]*mat[12] + mat[9]*mat[13] + mat[10]*mat[14]
-					writeMatrix(data[offset:offset+64], [16]float64{
+					writeMatrix(data[offset:offset+64], [16]float32{
 						1, 0, 0, 0,
 						0, 1, 0, 0,
 						0, 0, 1, 0,
@@ -71,7 +71,7 @@ func (doc *Document) FixJointMatrix() {
 	for i := 0; i < 10; i++ {
 		fixed := 0
 		for _, node := range doc.Nodes {
-			if node.Rotation == [4]float64{0, 0, 0, 1} || node.Skin != nil {
+			if node.Rotation == [4]float32{0, 0, 0, 1} || node.Skin != nil {
 				continue
 			}
 			fixed++
@@ -104,7 +104,7 @@ func (doc *Document) FixJointMatrix() {
 }
 
 func (doc *Document) FixJointComponentType() {
-	fixedbuffer := map[uint64]bool{}
+	fixedbuffer := map[uint32]bool{}
 	for _, mesh := range doc.Meshes {
 		for _, primitiv := range mesh.Primitives {
 			for k, attr := range primitiv.Attributes {
@@ -128,10 +128,10 @@ func (doc *Document) FixJointComponentType() {
 
 					bufferView.ByteLength *= 2
 					bufferView.ByteStride *= 2
-					bufferView.ByteOffset = uint64(len(buffer.Data))
+					bufferView.ByteOffset = uint32(len(buffer.Data))
 
 					buffer.Data = append(buffer.Data, dst...)
-					buffer.ByteLength += uint64(len(dst))
+					buffer.ByteLength += uint32(len(dst))
 				}
 			}
 		}

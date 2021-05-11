@@ -49,9 +49,9 @@ func (*basckSlashReplacer) Transform(dst, src []byte, atEOF bool) (nDst, nSrc in
 func (*basckSlashReplacer) Reset() {
 }
 
-func (p *Parser) readFloat() float64 {
+func (p *Parser) readFloat() float32 {
 	tok := p.s.Scan()
-	var s float64 = 1
+	var s float32 = 1
 	if p.s.TokenText() == "-" {
 		tok = p.s.Scan()
 		s = -1
@@ -60,7 +60,7 @@ func (p *Parser) readFloat() float64 {
 		return 0
 	}
 	n, _ := strconv.ParseFloat(p.s.TokenText(), 32)
-	return float64(n) * s
+	return float32(n) * s
 }
 
 func (p *Parser) readInt() int {

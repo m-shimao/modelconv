@@ -51,7 +51,7 @@ type BoneObj struct {
 type BoneWeight struct {
 	ObjectID int     `xml:"oi,attr"`
 	VertexID int     `xml:"vi,attr"`
-	Weight   float64 `xml:"w,attr"`
+	Weight   float32 `xml:"w,attr"`
 }
 
 type BoneRef struct {
@@ -64,30 +64,30 @@ type BoneOld struct {
 	Group   int    `xml:"group,attr"`
 	IsDummy int    `xml:"isDummy,attr"`
 
-	RtX float64 `xml:"rtX,attr"`
-	RtY float64 `xml:"rtY,attr"`
-	RtZ float64 `xml:"rtZ,attr"`
-	TpX float64 `xml:"tpX,attr"`
-	TpY float64 `xml:"tpY,attr"`
-	TpZ float64 `xml:"tpZ,attr"`
+	RtX float32 `xml:"rtX,attr"`
+	RtY float32 `xml:"rtY,attr"`
+	RtZ float32 `xml:"rtZ,attr"`
+	TpX float32 `xml:"tpX,attr"`
+	TpY float32 `xml:"tpY,attr"`
+	TpZ float32 `xml:"tpZ,attr"`
 
-	MvX float64 `xml:"mvX,attr"`
-	MvY float64 `xml:"mvY,attr"`
-	MvZ float64 `xml:"mvZ,attr"`
+	MvX float32 `xml:"mvX,attr"`
+	MvY float32 `xml:"mvY,attr"`
+	MvZ float32 `xml:"mvZ,attr"`
 
-	RotB float64 `xml:"rotB,attr"`
-	RotH float64 `xml:"rotH,attr"`
-	RotP float64 `xml:"rotP,attr"`
+	RotB float32 `xml:"rotB,attr"`
+	RotH float32 `xml:"rotH,attr"`
+	RotP float32 `xml:"rotP,attr"`
 
-	Sc float64 `xml:"sc,attr"`
+	Sc float32 `xml:"sc,attr"`
 
-	MaxAngB float64 `xml:"maxAngB,attr"`
-	MaxAngH float64 `xml:"maxAngH,attr"`
-	MaxAngP float64 `xml:"maxAngP,attr"`
+	MaxAngB float32 `xml:"maxAngB,attr"`
+	MaxAngH float32 `xml:"maxAngH,attr"`
+	MaxAngP float32 `xml:"maxAngP,attr"`
 
-	MinAngB float64 `xml:"minAngB,attr"`
-	MinAngH float64 `xml:"minAngH,attr"`
-	MinAngP float64 `xml:"minAngP,attr"`
+	MinAngB float32 `xml:"minAngB,attr"`
+	MinAngH float32 `xml:"minAngH,attr"`
+	MinAngP float32 `xml:"minAngP,attr"`
 
 	Parent   BoneRef    `xml:"P"`
 	Children []*BoneRef `xml:"C"`
@@ -142,7 +142,7 @@ func (v *Vector3) UnmarshalXMLAttr(attr xml.Attr) error {
 	return nil
 }
 
-func (b *Bone) SetVertexWeight(objectID, vertID int, weight float64) *VertexWeight {
+func (b *Bone) SetVertexWeight(objectID, vertID int, weight float32) *VertexWeight {
 	w := b.weightMap[objectID]
 	if w == nil {
 		if b.weightMap == nil {
@@ -164,7 +164,7 @@ type BoneWeight2 struct {
 
 type VertexWeight struct {
 	VertexID int     `xml:"v,attr"`
-	Weight   float64 `xml:"w,attr"`
+	Weight   float32 `xml:"w,attr"`
 }
 
 type BoneIK struct {
@@ -181,19 +181,19 @@ type BonePose struct {
 	Name string `xml:"name,attr"`
 
 	// Translation
-	MvX float64 `xml:"mvX,attr"`
-	MvY float64 `xml:"mvY,attr"`
-	MvZ float64 `xml:"mvZ,attr"`
+	MvX float32 `xml:"mvX,attr"`
+	MvY float32 `xml:"mvY,attr"`
+	MvZ float32 `xml:"mvZ,attr"`
 
 	// Rotation
-	RotB float64 `xml:"rotB,attr"`
-	RotH float64 `xml:"rotH,attr"`
-	RotP float64 `xml:"rotP,attr"`
+	RotB float32 `xml:"rotB,attr"`
+	RotH float32 `xml:"rotH,attr"`
+	RotP float32 `xml:"rotP,attr"`
 
 	// Scale
-	ScB float64 `xml:"scB,attr"`
-	ScH float64 `xml:"scH,attr"`
-	ScP float64 `xml:"scP,attr"`
+	ScB float32 `xml:"scB,attr"`
+	ScH float32 `xml:"scH,attr"`
+	ScP float32 `xml:"scP,attr"`
 }
 
 func (p *BonePlugin) PreSerialize(mqo *Document) {
@@ -244,7 +244,7 @@ func (doc *Document) BoneTransform(baseBone *Bone, transform func(v *Vector3)) {
 		}
 	}
 
-	verts := map[*Vector3]float64{}
+	verts := map[*Vector3]float32{}
 	for b := range targetBones {
 		verts[&b.Pos] = 1
 		for _, bw := range b.Weights {
@@ -297,7 +297,7 @@ func (doc *Document) BoneAdjustX(baseBone *Bone) {
 	}
 	doc.BoneTransform(baseBone, func(v *Vector3) {
 		dv := *v
-		v.X = dv.X*float64(math.Cos(rot)) - dv.Y*float64(math.Sin(rot))
-		v.Y = dv.X*float64(math.Sin(rot)) + dv.Y*float64(math.Cos(rot))
+		v.X = dv.X*float32(math.Cos(rot)) - dv.Y*float32(math.Sin(rot))
+		v.Y = dv.X*float32(math.Sin(rot)) + dv.Y*float32(math.Cos(rot))
 	})
 }

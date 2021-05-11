@@ -29,7 +29,7 @@ func (p *baseWriter) writeInt(v int) {
 	binary.Write(p.w, binary.LittleEndian, &vv)
 }
 
-func (p *baseWriter) writeFloat(v float64) float64 {
+func (p *baseWriter) writeFloat(v float32) float32 {
 	binary.Write(p.w, binary.LittleEndian, &v)
 	return v
 }
@@ -46,7 +46,7 @@ func (p *baseWriter) writeVUInt(sz byte, vv int) int {
 		return int(v)
 	}
 	if sz == 4 {
-		var v = uint64(vv)
+		var v = uint32(vv)
 		binary.Write(p.w, binary.LittleEndian, &v)
 		return int(v)
 	}

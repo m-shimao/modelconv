@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/m-shimao/modelconv/converter"
-	"github.com/m-shimao/modelconv/mqo"
+	"github.com/binzume/modelconv/converter"
+	"github.com/binzume/modelconv/mqo"
 )
 
 func defaultOutputFile(input string) string {
@@ -124,7 +124,7 @@ func main() {
 		})
 	}
 	if *scale != 1.0 {
-		s := float64(*scale)
+		s := float32(*scale)
 		doc.Transform(func(v *mqo.Vector3) {
 			v.X *= s
 			v.Y *= s

@@ -2,10 +2,10 @@
 3Dモデルファイルを変換するコマンドラインツールです．
 
 最新版はGitHubにあります．Windows(x64) 以外のバイナリが必要な場合はお手数ですがご自身でビルドしてください．
-https://github.com/m-shimao/modelconv
+https://github.com/binzume/modelconv
 
 利用方法はQiitaの記事も参考にしてください．
-https://qiita.com/m-shimao/items/d29cd21b9860809f72cf
+https://qiita.com/binzume/items/d29cd21b9860809f72cf
 
 # Usage
 
@@ -43,8 +43,8 @@ glbからvrmへの変換は特別扱いしているので，スケールや回�
 
 # License
 
-https://github.com/m-shimao/modelconv
-  MIT License (https://github.com/m-shimao/modelconv/blob/master/LICENSE)
+https://github.com/binzume/modelconv
+  MIT License (https://github.com/binzume/modelconv/blob/master/LICENSE)
 
 glTFの読み書きに以下のライブラリを使用しています．
 

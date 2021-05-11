@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/m-shimao/modelconv/vrm"
+	"github.com/binzume/modelconv/vrm"
 	"github.com/qmuntal/gltf"
 )
 
@@ -116,7 +116,7 @@ func applyConfigInternal(doc *vrm.Document, conf *Config, foundBones map[string]
 	for _, colliderGroup := range conf.ColliderGroups {
 		var b = colliderGroup.SecondaryAnimationColliderGroup
 		if id, ok := nodeMap[colliderGroup.NodeName]; ok {
-			b.Node = uint64(id)
+			b.Node = uint32(id)
 		} else {
 			log.Println("Node not found:", colliderGroup.NodeName)
 			continue
@@ -148,7 +148,7 @@ func applyConfigInternal(doc *vrm.Document, conf *Config, foundBones map[string]
 				blendShapeMap[t] = mapping.Name
 				m.Binds = []*vrm.BlendShapeBind{
 					&vrm.BlendShapeBind{
-						Mesh: uint64(t[0]), Index: t[1], Weight: 100,
+						Mesh: uint32(t[0]), Index: t[1], Weight: 100,
 					},
 				}
 			}
@@ -231,7 +231,7 @@ func ApplyConfig(doc *vrm.Document, conf *Config) {
 							Name: name,
 							Binds: []*vrm.BlendShapeBind{
 								&vrm.BlendShapeBind{
-									Mesh: uint64(mi), Index: i, Weight: 100,
+									Mesh: uint32(mi), Index: i, Weight: 100,
 								},
 							},
 						}
