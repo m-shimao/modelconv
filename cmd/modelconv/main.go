@@ -124,7 +124,7 @@ func main() {
 		})
 	}
 	if *scale != 1.0 {
-		s := float32(*scale)
+		s := float64(*scale)
 		doc.Transform(func(v *mqo.Vector3) {
 			v.X *= s
 			v.Y *= s

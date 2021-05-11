@@ -6,7 +6,7 @@ import (
 )
 
 type mqoToMMD struct {
-	Scale float32
+	Scale float64
 }
 
 func NewMQOToMMDConverter() *mqoToMMD {

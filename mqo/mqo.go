@@ -3,18 +3,18 @@ package mqo
 import "math"
 
 type Vector2 struct {
-	X float32
-	Y float32
+	X float64
+	Y float64
 }
 
 type Vector3 struct {
-	X float32
-	Y float32
-	Z float32
+	X float64
+	Y float64
+	Z float64
 }
 
-func (v *Vector3) Len() float32 {
-	return float32(math.Sqrt(float64(v.X*v.X + v.Y*v.Y + v.Z*v.Z)))
+func (v *Vector3) Len() float64 {
+	return float64(math.Sqrt(float64(v.X*v.X + v.Y*v.Y + v.Z*v.Z)))
 }
 
 func (v *Vector3) Normalize() {
@@ -36,17 +36,17 @@ func (v *Vector3) Sub(v2 *Vector3) *Vector3 {
 	return &Vector3{X: v.X - v2.X, Y: v.Y - v2.Y, Z: v.Z - v2.Z}
 }
 
-func (v *Vector3) ToArray(array []float32) {
+func (v *Vector3) ToArray(array []float64) {
 	array[0] = v.X
 	array[1] = v.Y
 	array[2] = v.Z
 }
 
 type Vector4 struct {
-	X float32
-	Y float32
-	Z float32
-	W float32
+	X float64
+	Y float64
+	Z float64
+	W float64
 }
 
 type Document struct {
@@ -93,11 +93,11 @@ type Material struct {
 	UID   int
 	Color Vector4
 
-	Diffuse  float32
-	Ambient  float32
-	Emission float32
-	Specular float32
-	Power    float32
+	Diffuse  float64
+	Ambient  float64
+	Emission float64
+	Specular float64
+	Power    float64
 	Texture  string
 
 	EmissionColor *Vector3
@@ -151,11 +151,11 @@ type Object struct {
 	Locked    bool
 	Depth     int
 	Shading   int
-	Facet     float32
+	Facet     float64
 	Patch     int
 	Segment   int
 	Mirror    int
-	MirrorDis float32
+	MirrorDis float64
 
 	VertexByUID map[int]int
 }

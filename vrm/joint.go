@@ -5,8 +5,8 @@ import (
 	"math"
 )
 
-func readMatrix(data []byte) [16]float32 {
-	var mat [16]float32
+func readMatrix(data []byte) [16]float64 {
+	var mat [16]float64
 	for i := 0; i < 16; i++ {
 		d := binary.LittleEndian.Uint32(data[i*4 : i*4+4])
 		mat[i] = math.Float32frombits(d)
@@ -14,7 +14,7 @@ func readMatrix(data []byte) [16]float32 {
 	return mat
 }
 
-func writeMatrix(data []byte, mat [16]float32) {
+func writeMatrix(data []byte, mat [16]float64) {
 	for i := 0; i < 16; i++ {
 		binary.LittleEndian.PutUint32(data[i*4:i*4+4], math.Float32bits(mat[i]))
 	}
@@ -56,7 +56,7 @@ func (doc *Document) FixJointMatrix() {
 					x := mat[0]*mat[12] + mat[1]*mat[13] + mat[2]*mat[14]
 					y := mat[4]*mat[12] + mat[5]*mat[13] + mat[6]*mat[14]
 					z := mat[8]*mat[12] + mat[9]*mat[13] + mat[10]*mat[14]
-					writeMatrix(data[offset:offset+64], [16]float32{
+					writeMatrix(data[offset:offset+64], [16]float64{
 						1, 0, 0, 0,
 						0, 1, 0, 0,
 						0, 0, 1, 0,

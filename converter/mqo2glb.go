@@ -30,7 +30,7 @@ type MQOToGLTFOption struct {
 type mqoToGltf struct {
 	*modeler.Modeler
 	options      *MQOToGLTFOption
-	scale        float32
+	scale        float64
 	convertBone  bool
 	convertMorph bool
 }
@@ -48,8 +48,8 @@ func NewMQOToGLTFConverter(options *MQOToGLTFOption) *mqoToGltf {
 	}
 }
 
-func (m *mqoToGltf) addMatrices(bufferIndex uint32, mat [][4][4]float32) uint32 {
-	a := make([][4]float32, len(mat)*4)
+func (m *mqoToGltf) addMatrices(bufferIndex uint32, mat [][4][4]float64) uint32 {
+	a := make([][4]float64, len(mat)*4)
 	for i, m := range mat {
 		a[i*4+0] = m[0]
 		a[i*4+1] = m[1]
@@ -94,18 +94,18 @@ func (m *mqoToGltf) addBoneNodes(bones []*mqo.Bone) (map[int]uint32, map[uint32]
 	return idmap, idmapr
 }
 
-func (m *mqoToGltf) getNormal(obj *mqo.Object) [][3]float32 {
+func (m *mqoToGltf) getNormal(obj *mqo.Object) [][3]float64 {
 	normals := obj.GetSmoothNormals()
-	normalArray := make([][3]float32, len(obj.Vertexes))
+	normalArray := make([][3]float64, len(obj.Vertexes))
 	for i, n := range normals {
 		n.ToArray(normalArray[i][:])
 	}
 	return normalArray
 }
 
-func (m *mqoToGltf) getWeights(bones []*mqo.Bone, obj *mqo.Object, boneIDToJoint map[int]uint32) ([]uint32, [][4]uint16, [][4]float32) {
+func (m *mqoToGltf) getWeights(bones []*mqo.Bone, obj *mqo.Object, boneIDToJoint map[int]uint32) ([]uint32, [][4]uint16, [][4]float64) {
 	var joints [][4]uint16
-	var weights [][4]float32
+	var weights [][4]float64
 	var njoint []int
 	var jointIds []uint32
 
@@ -117,7 +117,7 @@ func (m *mqoToGltf) getWeights(bones []*mqo.Bone, obj *mqo.Object, boneIDToJoint
 			}
 			if joints == nil {
 				joints = make([][4]uint16, vs)
-				weights = make([][4]float32, vs)
+				weights = make([][4]float64, vs)
 				njoint = make([]int, vs)
 			}
 			jointIds = append(jointIds, boneIDToJoint[b.ID])
@@ -136,11 +136,11 @@ func (m *mqoToGltf) getWeights(bones []*mqo.Bone, obj *mqo.Object, boneIDToJoint
 }
 
 func (m *mqoToGltf) addSkin(joints []uint32, jointToBone map[uint32]*mqo.Bone) uint32 {
-	invmats := make([][4][4]float32, len(joints))
+	invmats := make([][4][4]float64, len(joints))
 	scale := m.scale
 	for i, j := range joints {
 		b := jointToBone[j]
-		invmats[i] = [4][4]float32{
+		invmats[i] = [4][4]float64{
 			{1, 0, 0, 0},
 			{0, 1, 0, 0},
 			{0, 0, 1, 0},
@@ -269,17 +269,17 @@ func (m *mqoToGltf) ConvertObject(obj *mqo.Object, bones []*mqo.Bone, boneIDToJo
 	morphObjs []*mqo.Object, ignoreMats map[int]bool) (*gltf.Mesh, []uint32) {
 	scale := m.scale
 
-	var vertexes [][3]float32
+	var vertexes [][3]float64
 	var srcIndices []int
 	for i, v := range obj.Vertexes {
-		vertexes = append(vertexes, [3]float32{v.X * scale, v.Y * scale, v.Z * scale})
+		vertexes = append(vertexes, [3]float64{v.X * scale, v.Y * scale, v.Z * scale})
 		srcIndices = append(srcIndices, i)
 	}
 
 	joints, joints0, weights0 := m.getWeights(bones, obj, boneIDToJoint)
 	indices := map[int][]uint32{}
 	normal := m.getNormal(obj)
-	texcood0 := make([][2]float32, len(vertexes))
+	texcood0 := make([][2]float64, len(vertexes))
 	type vertexKey struct {
 		i  int
 		uv mqo.Vector2
@@ -315,7 +315,7 @@ func (m *mqoToGltf) ConvertObject(obj *mqo.Object, bones []*mqo.Bone, boneIDToJo
 						indicesMap[vertexKey{index, f.UVs[i]}] = verts[i]
 					}
 				}
-				texcood0[verts[i]] = [2]float32{f.UVs[i].X, f.UVs[i].Y}
+				texcood0[verts[i]] = [2]float64{f.UVs[i].X, f.UVs[i].Y}
 			}
 		}
 		// convex polygon only. TODO: triangulation.
@@ -342,10 +342,10 @@ func (m *mqoToGltf) ConvertObject(obj *mqo.Object, bones []*mqo.Bone, boneIDToJo
 	var targets []map[string]uint32
 	var targetNames []string
 	for _, morphObj := range morphObjs {
-		var mv [][3]float32
+		var mv [][3]float64
 		for _, i := range srcIndices {
 			v := morphObj.Vertexes[i]
-			mv = append(mv, [3]float32{v.X*scale - vertexes[i][0], v.Y*scale - vertexes[i][1], v.Z*scale - vertexes[i][2]})
+			mv = append(mv, [3]float64{v.X*scale - vertexes[i][0], v.Y*scale - vertexes[i][1], v.Z*scale - vertexes[i][2]})
 		}
 		targets = append(targets, map[string]uint32{
 			"POSITION": m.AddPosition(0, mv),

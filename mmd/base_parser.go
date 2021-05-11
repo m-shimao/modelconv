@@ -31,8 +31,8 @@ func (p *baseParser) readInt() int {
 	return int(v)
 }
 
-func (p *baseParser) readFloat() float32 {
-	var v float32
+func (p *baseParser) readFloat() float64 {
+	var v float64
 	binary.Read(p.r, binary.LittleEndian, &v)
 	return v
 }

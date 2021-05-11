@@ -1,21 +1,21 @@
 package mmd
 
 type Vector2 struct {
-	X float32
-	Y float32
+	X float64
+	Y float64
 }
 
 type Vector3 struct {
-	X float32
-	Y float32
-	Z float32
+	X float64
+	Y float64
+	Z float64
 }
 
 type Vector4 struct {
-	X float32
-	Y float32
-	Z float32
-	W float32
+	X float64
+	Y float64
+	Z float64
+	W float64
 }
 
 type Document struct {
@@ -42,7 +42,7 @@ func NewDocument() *Document {
 
 type Header struct {
 	Format  []byte
-	Version float32
+	Version float64
 	Info    []byte
 }
 
@@ -51,11 +51,11 @@ type Vertex struct {
 	Normal    Vector3
 	UV        Vector2
 	ExtUVs    []Vector4
-	EdgeScale float32
+	EdgeScale float64
 
 	// TODO Matrix
 	Bones       []int
-	BoneWeights []float32
+	BoneWeights []float64
 }
 
 type Face struct {
@@ -67,11 +67,11 @@ type Material struct {
 	NameEn      string
 	Color       Vector4
 	Specular    Vector3
-	Specularity float32
+	Specularity float64
 	AColor      Vector3
 	Flags       byte
 	EdgeColor   Vector4
-	EdgeScale   float32
+	EdgeScale   float64
 	TextureID   int
 	EnvID       int
 	EnvMode     byte
@@ -104,14 +104,14 @@ type Bone struct {
 	TailPos  Vector3
 
 	InheritParentID        int
-	InheritParentInfluence float32
+	InheritParentInfluence float64
 
 	FixedAxis Vector3
 
 	IK struct {
 		TargetID int
 		Loop     int
-		LimitRad float32
+		LimitRad float64
 		Links    []*Link
 	}
 }
@@ -137,7 +137,7 @@ const (
 // type 0
 type MorphGroup struct {
 	Target int
-	Weight float32
+	Weight float64
 }
 
 // type 1
@@ -159,10 +159,10 @@ type MorphMaterial struct {
 	Flags           byte
 	Diffuse         Vector4
 	Specular        Vector3
-	Specularity     float32
+	Specularity     float64
 	Ambient         Vector3
 	EdgeColor       Vector4
-	EdgeSize        float32
+	EdgeSize        float64
 	TextureTint     Vector4
 	EnvironmentTint Vector4
 	ToonTint        Vector4

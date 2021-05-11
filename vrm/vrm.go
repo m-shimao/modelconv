@@ -80,10 +80,10 @@ type Bone struct {
 	Node             int    `json:"node"`
 	UseDefaultValues bool   `json:"useDefaultValues"`
 
-	Min        *[3]float32 `json:"min,omitempty"`
-	Max        *[3]float32 `json:"max,omitempty"`
-	Center     *[3]float32 `json:"center,omitempty"`
-	AxisLength float32     `json:"axisLength,omitempty"`
+	Min        *[3]float64 `json:"min,omitempty"`
+	Max        *[3]float64 `json:"max,omitempty"`
+	Center     *[3]float64 `json:"center,omitempty"`
+	AxisLength float64     `json:"axisLength,omitempty"`
 }
 
 type FirstPerson struct {
