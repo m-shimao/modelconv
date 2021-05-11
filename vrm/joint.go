@@ -21,7 +21,7 @@ func writeMatrix(data []byte, mat [16]float32) {
 }
 
 type Q struct {
-	x, y, z, w float64
+	x, y, z, w float32
 }
 
 func (q *Q) c() *Q {
@@ -76,7 +76,7 @@ func (doc *Document) FixJointMatrix() {
 			}
 			fixed++
 			a := Q{node.Rotation[0], node.Rotation[1], node.Rotation[2], node.Rotation[3]}
-			node.Rotation = [4]float64{0, 0, 0, 1}
+			node.Rotation = [4]float32{0, 0, 0, 1}
 			for _, c := range node.Children {
 				child := doc.Nodes[c]
 				rb := child.Rotation
