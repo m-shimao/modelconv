@@ -1,4 +1,4 @@
-module github.com/m-shimao/modelconv
+module github.com/m-shimao/modelconv/cmd/modelconv
 
 go 1.13
 
