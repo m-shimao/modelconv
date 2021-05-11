@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/binzume/modelconv/converter"
-	"github.com/binzume/modelconv/mqo"
+	"github.com/m-shimao/modelconv/converter"
+	"github.com/m-shimao/modelconv/mqo"
 )
 
 func defaultOutputFile(input string) string {
