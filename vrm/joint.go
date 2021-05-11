@@ -8,7 +8,7 @@ import (
 func readMatrix(data []byte) [16]float64 {
 	var mat [16]float64
 	for i := 0; i < 16; i++ {
-		d := binary.LittleEndian.Uint32(data[i*4 : i*4+4])
+		d := binary.LittleEndian.Uint64(data[i*4 : i*4+4])
 		mat[i] = math.Float64frombits(d)
 	}
 	return mat
@@ -16,7 +16,7 @@ func readMatrix(data []byte) [16]float64 {
 
 func writeMatrix(data []byte, mat [16]float64) {
 	for i := 0; i < 16; i++ {
-		binary.LittleEndian.PutUint32(data[i*4:i*4+4], math.Float64bits(mat[i]))
+		binary.LittleEndian.PutUint64(data[i*4:i*4+4], math.Float64bits(mat[i]))
 	}
 }
 
@@ -50,7 +50,7 @@ func (doc *Document) FixJointMatrix() {
 				}
 				for i := range skin.Joints {
 					// fix inverseBindMatrix
-					offset := bufferView.ByteOffset + uint32(i)*64
+					offset := bufferView.ByteOffset + uint64(i)*64
 					mat := readMatrix(data[offset : offset+64])
 
 					x := mat[0]*mat[12] + mat[1]*mat[13] + mat[2]*mat[14]
@@ -104,7 +104,7 @@ func (doc *Document) FixJointMatrix() {
 }
 
 func (doc *Document) FixJointComponentType() {
-	fixedbuffer := map[uint32]bool{}
+	fixedbuffer := map[uint64]bool{}
 	for _, mesh := range doc.Meshes {
 		for _, primitiv := range mesh.Primitives {
 			for k, attr := range primitiv.Attributes {
@@ -128,10 +128,10 @@ func (doc *Document) FixJointComponentType() {
 
 					bufferView.ByteLength *= 2
 					bufferView.ByteStride *= 2
-					bufferView.ByteOffset = uint32(len(buffer.Data))
+					bufferView.ByteOffset = uint64(len(buffer.Data))
 
 					buffer.Data = append(buffer.Data, dst...)
-					buffer.ByteLength += uint32(len(dst))
+					buffer.ByteLength += uint64(len(dst))
 				}
 			}
 		}

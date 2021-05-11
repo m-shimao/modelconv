@@ -111,7 +111,7 @@ type BlendShapeGroup struct {
 }
 
 type BlendShapeBind struct {
-	Mesh   uint32  `json:"mesh"`
+	Mesh   uint64  `json:"mesh"`
 	Index  int     `json:"index"`
 	Weight float64 `json:"weight"`
 }
@@ -140,7 +140,7 @@ type SecondaryAnimationBoneGroup struct {
 }
 
 type SecondaryAnimationColliderGroup struct {
-	Node      uint32                        `json:"node"`
+	Node      uint64                        `json:"node"`
 	Colliders []*SecondaryAnimationCollider `json:"colliders"`
 }
 
@@ -155,7 +155,7 @@ type MaterialProperty struct {
 	RenderQueue       int                  `json:"renderQueue"`
 	FloatProperties   map[string]float64   `json:"floatProperties"`
 	VectorProperties  map[string][]float64 `json:"vectorProperties"`
-	TextureProperties map[string]uint32    `json:"textureProperties"`
+	TextureProperties map[string]uint64    `json:"textureProperties"`
 	KeywordMap        map[string]bool      `json:"keywordMap"`
 	TagMap            map[string]string    `json:"tagMap"`
 }
@@ -166,7 +166,7 @@ func NewMaterialProperty(name string) *MaterialProperty {
 		RenderQueue:       2000,
 		FloatProperties:   map[string]float64{},
 		VectorProperties:  map[string][]float64{},
-		TextureProperties: map[string]uint32{},
+		TextureProperties: map[string]uint64{},
 		KeywordMap:        map[string]bool{},
 		TagMap:            map[string]string{},
 	}
