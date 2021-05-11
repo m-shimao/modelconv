@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/binzume/modelconv/vrm"
+	"github.com/m-shimao/modelconv/vrm"
 	"github.com/qmuntal/gltf"
 )
 

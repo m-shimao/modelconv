@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/binzume/modelconv/mqo"
+	"github.com/m-shimao/modelconv/mqo"
 	"github.com/qmuntal/gltf"
 	"github.com/qmuntal/gltf/modeler"
 
