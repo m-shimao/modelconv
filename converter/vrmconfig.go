@@ -1,13 +1,14 @@
 package converter
 
 import (
+  "fmt"
 	"encoding/json"
 	"io/ioutil"
 	"log"
 	"os"
 	"path/filepath"
 
-	"github.com/m-shimao/modelconv/vrm"
+	"modelconv/vrm"
 	"github.com/qmuntal/gltf"
 )
 
@@ -68,6 +69,7 @@ func applyConfigInternal(doc *vrm.Document, conf *Config, foundBones map[string]
 			b.UseDefaultValues = b.UseDefaultValues || b.Min == nil && b.Max == nil && b.Center == nil
 			ext.Humanoid.Bones = append(ext.Humanoid.Bones, &b)
 		} else {
+      fmt.Print(foundBones)
 			log.Println("Bone node not found:", mapping.NodeName)
 		}
 	}

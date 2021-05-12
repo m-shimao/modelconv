@@ -4,8 +4,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/m-shimao/modelconv/converter"
-	"github.com/m-shimao/modelconv/vrm"
+	"modelconv/converter"
+	"modelconv/vrm"
 	"github.com/qmuntal/gltf"
 )
 

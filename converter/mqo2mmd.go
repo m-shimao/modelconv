@@ -1,8 +1,8 @@
 package converter
 
 import (
-	"github.com/m-shimao/modelconv/mmd"
-	"github.com/m-shimao/modelconv/mqo"
+	"modelconv/mmd"
+	"modelconv/mqo"
 )
 
 type mqoToMMD struct {

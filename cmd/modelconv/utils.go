@@ -6,9 +6,9 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/m-shimao/modelconv/converter"
-	"github.com/m-shimao/modelconv/mmd"
-	"github.com/m-shimao/modelconv/mqo"
+	"modelconv/converter"
+	"modelconv/mmd"
+	"modelconv/mqo"
 	"github.com/qmuntal/gltf"
 )
 

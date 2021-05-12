@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/m-shimao/modelconv/mmd"
-	"github.com/m-shimao/modelconv/mqo"
+	"modelconv/mmd"
+	"modelconv/mqo"
 )
 
 type mmdToMQO struct {
